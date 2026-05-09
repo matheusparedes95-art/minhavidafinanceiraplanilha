@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minha Vida Financeira — Planilha Premium de Controle Financeiro</title>
+<meta name="description" content="A planilha que organiza sua vida financeira em 30 minutos. Dashboard, controle de dívidas, investimentos e metas. Por apenas R$27 nessa semana de lançamento. Depois sobe para R$47.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ─────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#06060E;
+  --bg2:#0D0D1C;
+  --card:#121224;
+  --card2:#191930;
+  --border:#252545;
+  --orange:#FF5722;
+  --orange2:#FF7043;
+  --green:#00C896;
+  --teal:#00BCD4;
+  --gold:#FFB300;
+  --purple:#7C3AED;
+  --red:#F44336;
+  --white:#F5F0EB;
+  --muted:#8888AA;
+  --display:'Fraunces',Georgia,serif;
+  --body:'Outfit',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--white);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-thumb{background:var(--orange);border-radius:2px;}
+
+/* ── Countdown bar ────────────────────────────────────────────────────── */
+.topbar{
+  background:linear-gradient(90deg,var(--orange),#FF8A50,var(--orange));
+  background-size:200% 100%;
+  animation:barbg 3s linear infinite;
+  text-align:center;padding:10px 16px;
+  font-size:13px;font-weight:600;color:#fff;letter-spacing:.03em;
+}
+@keyframes barbg{0%{background-position:0%}100%{background-position:200%}}
+.topbar span{font-weight:700;}
+#timer{font-weight:900;font-size:15px;letter-spacing:.08em;}
+
+/* ── Hero ─────────────────────────────────────────────────────────────── */
+.hero{
+  position:relative;overflow:hidden;
+  padding:80px 20px 70px;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% -10%,rgba(255,87,34,.22) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 110%,rgba(0,200,150,.12) 0%,transparent 55%),
+    var(--bg);
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.015'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none;
+}
+.wrap{max-width:860px;margin:0 auto;}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(255,87,34,.4);
+  background:rgba(255,87,34,.08);
+  color:var(--orange2);font-size:11px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  padding:6px 16px;border-radius:40px;margin-bottom:28px;
+}
+.pulse{width:7px;height:7px;background:var(--orange);border-radius:50%;
+  box-shadow:0 0 0 0 rgba(255,87,34,.4);
+  animation:pulseAnim 1.8s infinite;}
+@keyframes pulseAnim{
+  0%{box-shadow:0 0 0 0 rgba(255,87,34,.5)}
+  70%{box-shadow:0 0 0 10px rgba(255,87,34,0)}
+  100%{box-shadow:0 0 0 0 rgba(255,87,34,0)}
+}
+.hero h1{
+  font-family:var(--display);
+  font-size:clamp(32px,6.5vw,64px);
+  font-weight:900;line-height:1.08;
+  letter-spacing:-.03em;
+  margin-bottom:24px;
+}
+.hero h1 .hl{
+  color:transparent;
+  background:linear-gradient(90deg,var(--orange),var(--orange2),#FFB74D);
+  -webkit-background-clip:text;background-clip:text;
+}
+.hero-sub{
+  font-size:clamp(16px,2.5vw,20px);
+  color:var(--muted);max-width:620px;
+  margin-bottom:40px;line-height:1.75;font-weight:300;
+}
+.hero-sub strong{color:var(--white);font-weight:600;}
+
+/* Dashboard mockup */
+.mockup{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:20px;
+  margin:0 auto 48px;
+  max-width:640px;
+  box-shadow:0 0 80px rgba(255,87,34,.12), 0 32px 64px rgba(0,0,0,.6);
+  position:relative;
+}
+.mockup::before{
+  content:'';position:absolute;
+  top:-1px;left:20%;right:20%;height:2px;
+  background:linear-gradient(90deg,transparent,var(--orange),transparent);
+  border-radius:2px;
+}
+.mockup-bar{
+  display:flex;gap:6px;align-items:center;
+  margin-bottom:16px;padding-bottom:12px;
+  border-bottom:1px solid var(--border);
+}
+.mockup-bar span{width:10px;height:10px;border-radius:50%;}
+.dot-r{background:#FF5F57;} .dot-y{background:#FEBC2E;} .dot-g{background:#28C840;}
+.mockup-title{font-size:11px;color:var(--muted);margin-left:auto;font-family:var(--body);}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+.kpi{background:var(--card2);border-radius:10px;padding:12px 10px;text-align:center;}
+.kpi-num{font-family:var(--display);font-size:18px;font-weight:700;line-height:1;}
+.kpi-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:4px;}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.chart-box{background:var(--card2);border-radius:10px;padding:14px;}
+.chart-lbl{font-size:10px;color:var(--muted);margin-bottom:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;}
+.bar-item{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+.bar-name{font-size:10px;color:var(--muted);width:60px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.bar-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:3px;}
+.bar-val{font-size:10px;color:var(--white);width:28px;text-align:right;flex-shrink:0;}
+.pie-visual{display:flex;flex-direction:column;gap:8px;}
+.pie-item{display:flex;align-items:center;gap:8px;font-size:11px;}
+.pie-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.pie-name{color:var(--muted);flex:1;}
+.pie-pct{color:var(--white);font-weight:600;}
+
+/* ── Section layouts ──────────────────────────────────────────────────── */
+section{padding:80px 20px;}
+.section-label{
+  font-size:11px;color:var(--orange);font-weight:700;
+  letter-spacing:.25em;text-transform:uppercase;margin-bottom:12px;
+}
+.section-title{
+  font-family:var(--display);
+  font-size:clamp(26px,4.5vw,46px);
+  font-weight:900;line-height:1.15;
+  letter-spacing:-.02em;margin-bottom:12px;
+}
+.section-sub{color:var(--muted);font-size:16px;max-width:560px;line-height:1.8;margin-bottom:40px;}
+
+/* ── Pain section ─────────────────────────────────────────────────────── */
+.pain{background:var(--bg2);}
+.pain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;}
+.pain-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:22px;
+  border-left:3px solid var(--red);
+  transition:transform .2s;
+}
+.pain-card:hover{transform:translateY(-3px);}
+.pain-icon{font-size:28px;margin-bottom:10px;}
+.pain-title{font-weight:700;font-size:15px;margin-bottom:6px;}
+.pain-body{color:var(--muted);font-size:14px;line-height:1.7;}
+
+/* ── Benefits ─────────────────────────────────────────────────────────── */
+.benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;}
+.benefit-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:24px;
+  transition:border-color .2s,transform .2s;
+  position:relative;overflow:hidden;
+}
+.benefit-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--orange),transparent);
+  opacity:0;transition:opacity .2s;
+}
+.benefit-card:hover{border-color:rgba(255,87,34,.4);transform:translateY(-3px);}
+.benefit-card:hover::after{opacity:1;}
+.benefit-icon{font-size:32px;margin-bottom:14px;}
+.benefit-title{font-weight:700;font-size:16px;margin-bottom:8px;}
+.benefit-body{color:var(--muted);font-size:13.5px;line-height:1.75;}
+
+/* ── What's inside ────────────────────────────────────────────────────── */
+.inside{background:var(--bg2);}
+.inside-list{display:flex;flex-direction:column;gap:10px;max-width:680px;}
+.inside-item{
+  display:flex;align-items:flex-start;gap:14px;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:16px 18px;
+  transition:border-color .2s;
+}
+.inside-item:hover{border-color:rgba(0,200,150,.3);}
+.inside-check{
+  min-width:24px;height:24px;border-radius:50%;
+  background:rgba(0,200,150,.15);border:1px solid rgba(0,200,150,.4);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;flex-shrink:0;margin-top:2px;color:var(--green);font-weight:700;
+}
+.inside-item b{display:block;color:var(--white);font-size:15px;margin-bottom:3px;}
+.inside-item p{color:var(--muted);font-size:13px;margin:0;line-height:1.6;}
+
+/* ── Testimonials ─────────────────────────────────────────────────────── */
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;}
+.testi-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:16px;padding:24px;
+  position:relative;
+}
+.testi-card::before{
+  content:'"';position:absolute;top:14px;right:20px;
+  font-family:var(--display);font-size:60px;color:var(--orange);opacity:.25;
+  line-height:1;
+}
+.stars{color:var(--gold);font-size:14px;margin-bottom:12px;letter-spacing:2px;}
+.testi-text{color:var(--muted);font-size:13.5px;line-height:1.75;margin-bottom:16px;}
+.testi-text strong{color:var(--white);}
+.testi-author{display:flex;align-items:center;gap:10px;}
+.testi-avatar{
+  width:38px;height:38px;border-radius:50%;
+  background:linear-gradient(135deg,var(--orange),var(--purple));
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:14px;color:#fff;flex-shrink:0;
+}
+.testi-name{font-weight:600;font-size:13px;}
+.testi-role{font-size:11px;color:var(--muted);}
+
+/* ── Comparison ───────────────────────────────────────────────────────── */
+.compare{background:var(--bg2);}
+.compare-table{
+  width:100%;border-collapse:collapse;
+  background:var(--card);border-radius:16px;
+  overflow:hidden;border:1px solid var(--border);
+}
+.compare-table th{
+  padding:14px 18px;text-align:center;font-size:13px;font-weight:700;
+  background:var(--card2);border-bottom:1px solid var(--border);
+}
+.compare-table th:first-child{text-align:left;}
+.compare-table th:nth-child(3){
+  background:rgba(255,87,34,.12);color:var(--orange);
+  border-bottom:2px solid var(--orange);
+}
+.compare-table td{
+  padding:13px 18px;border-bottom:1px solid rgba(37,37,69,.6);
+  font-size:13.5px;color:var(--muted);text-align:center;
+}
+.compare-table td:first-child{text-align:left;color:var(--white);font-weight:500;}
+.compare-table td:nth-child(3){background:rgba(255,87,34,.04);}
+.compare-table tr:last-child td{border-bottom:none;}
+.compare-table .yes{color:var(--green);font-size:16px;}
+.compare-table .no{color:var(--red);font-size:16px;}
+.compare-table .highlight{color:var(--orange);font-weight:700;}
+
+/* ── Objections ───────────────────────────────────────────────────────── */
+.obj-list{display:flex;flex-direction:column;gap:0;}
+.obj-item{
+  border-bottom:1px solid var(--border);
+  overflow:hidden;
+}
+.obj-item:last-child{border-bottom:none;}
+.obj-q{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 0;cursor:pointer;user-select:none;
+  font-weight:600;font-size:15px;color:var(--white);gap:16px;
+}
+.obj-q:hover{color:var(--orange);}
+.obj-icon{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--card2);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;flex-shrink:0;transition:transform .2s;color:var(--orange);
+}
+.obj-a{
+  max-height:0;overflow:hidden;
+  transition:max-height .35s ease,padding .35s ease;
+  color:var(--muted);font-size:14px;line-height:1.8;
+}
+.obj-item.open .obj-a{max-height:200px;padding-bottom:18px;}
+.obj-item.open .obj-icon{transform:rotate(45deg);}
+
+/* ── Pricing ──────────────────────────────────────────────────────────── */
+.pricing{background:var(--bg2);}
+.price-box{
+  max-width:520px;margin:0 auto;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:24px;padding:44px 36px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.price-box::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--orange),var(--orange2),#FFB74D);
+}
+.price-box::after{
+  content:'';position:absolute;
+  top:-80px;right:-80px;
+  width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,87,34,.12),transparent 70%);
+  pointer-events:none;
+}
+.price-label{
+  display:inline-block;
+  background:rgba(255,87,34,.12);border:1px solid rgba(255,87,34,.3);
+  color:var(--orange);font-size:11px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;padding:5px 14px;border-radius:30px;margin-bottom:24px;
+}
+.price-old{font-size:18px;color:var(--muted);text-decoration:line-through;margin-bottom:6px;}
+.price-main{
+  font-family:var(--display);font-size:80px;font-weight:900;
+  color:var(--orange);line-height:1;margin-bottom:6px;
+}
+.price-main sub{font-size:32px;vertical-align:super;font-weight:700;}
+.price-cent{font-size:40px;}
+.price-info{font-size:13px;color:var(--muted);margin-bottom:28px;}
+.price-includes{
+  text-align:left;margin-bottom:32px;
+  background:var(--card2);border-radius:12px;padding:18px 20px;
+}
+.price-includes p{
+  font-size:13.5px;color:var(--muted);padding:5px 0;
+  display:flex;align-items:center;gap:10px;
+}
+.price-includes p::before{content:'✓';color:var(--green);font-weight:700;font-size:14px;}
+.cta-btn{
+  display:block;width:100%;
+  background:linear-gradient(135deg,var(--orange),var(--orange2));
+  color:#fff;font-size:17px;font-weight:700;
+  border:none;border-radius:14px;padding:20px;
+  cursor:pointer;text-decoration:none;
+  letter-spacing:.02em;
+  box-shadow:0 8px 32px rgba(255,87,34,.4);
+  transition:transform .2s,box-shadow .2s;
+  position:relative;overflow:hidden;
+}
+.cta-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);
+  pointer-events:none;
+}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,87,34,.55);}
+.cta-btn:active{transform:translateY(0);}
+.cta-sub{font-size:12px;color:var(--muted);margin-top:16px;}
+.cta-sub span{color:var(--green);}
+
+/* ── Guarantee ────────────────────────────────────────────────────────── */
+.guarantee{
+  background:rgba(0,200,150,.05);border:1px solid rgba(0,200,150,.2);
+  border-radius:20px;padding:36px;text-align:center;margin-top:32px;
+  max-width:520px;margin-left:auto;margin-right:auto;
+}
+.guarantee-icon{font-size:52px;margin-bottom:14px;}
+.guarantee h3{
+  font-family:var(--display);font-size:22px;font-weight:700;
+  color:var(--green);margin-bottom:10px;
+}
+.guarantee p{color:var(--muted);font-size:14px;line-height:1.8;}
+
+/* ── Bonus section ────────────────────────────────────────────────────── */
+.bonus-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+.bonus-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:20px;
+  position:relative;
+}
+.bonus-badge{
+  position:absolute;top:14px;right:14px;
+  background:var(--orange);color:#fff;
+  font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;
+}
+.bonus-icon{font-size:30px;margin-bottom:10px;}
+.bonus-title{font-weight:700;font-size:14px;margin-bottom:6px;}
+.bonus-body{color:var(--muted);font-size:12.5px;line-height:1.7;}
+.bonus-value{margin-top:10px;font-size:11px;color:var(--muted);}
+.bonus-value span{color:var(--orange);font-weight:700;}
+
+/* ── CTA Hero ─────────────────────────────────────────────────────────── */
+.cta-hero{
+  background:
+    radial-gradient(ellipse 70% 80% at 50% 50%,rgba(255,87,34,.14),transparent 70%),
+    var(--bg);
+  text-align:center;padding:100px 20px;
+}
+.cta-hero h2{
+  font-family:var(--display);
+  font-size:clamp(28px,5vw,52px);
+  font-weight:900;margin-bottom:16px;
+  letter-spacing:-.02em;
+}
+.cta-hero p{color:var(--muted);font-size:17px;max-width:500px;margin:0 auto 36px;line-height:1.75;}
+
+/* ── FAQ ──────────────────────────────────────────────────────────────── */
+.faq-wrap{max-width:680px;margin:0 auto;}
+
+/* ── Footer ───────────────────────────────────────────────────────────── */
+footer{
+  background:var(--card);border-top:1px solid var(--border);
+  text-align:center;padding:32px 20px;
+  color:var(--muted);font-size:13px;
+}
+footer a{color:var(--orange);text-decoration:none;}
+
+/* ── Utilities ────────────────────────────────────────────────────────── */
+.text-center{text-align:center;}
+.mx-auto{margin-left:auto;margin-right:auto;}
+.mb-0{margin-bottom:0;}
+hr.divider{border:none;border-top:1px solid var(--border);margin:40px 0;}
+.social-proof{
+  display:flex;align-items:center;justify-content:center;gap:16px;
+  flex-wrap:wrap;margin-bottom:36px;
+}
+.sp-item{
+  display:flex;align-items:center;gap:8px;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:30px;padding:8px 16px;font-size:13px;font-weight:500;
+}
+.sp-item span{color:var(--orange);}
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+
+/* ── Sticky CTA ───────────────────────────────────────────────────────── */
+.sticky-cta{
+  position:fixed;bottom:0;left:0;right:0;z-index:99;
+  background:rgba(6,6,14,.95);backdrop-filter:blur(16px);
+  border-top:1px solid var(--border);
+  padding:12px 20px;
+  display:flex;align-items:center;justify-content:center;gap:16px;
+  flex-wrap:wrap;transform:translateY(100%);transition:transform .3s;
+}
+.sticky-cta.show{transform:translateY(0);}
+.sticky-cta p{font-size:14px;font-weight:500;color:var(--muted);}
+.sticky-cta p strong{color:var(--white);}
+.sticky-cta a{
+  background:var(--orange);color:#fff;
+  font-size:14px;font-weight:700;
+  padding:10px 24px;border-radius:10px;
+  text-decoration:none;white-space:nowrap;
+  transition:background .2s;
+}
+.sticky-cta a:hover{background:var(--orange2);}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+@media(max-width:640px){
+  .kpi-row{grid-template-columns:repeat(2,1fr);}
+  .chart-row{grid-template-columns:1fr;}
+  .price-main{font-size:64px;}
+  .compare-table{font-size:12px;}
+  .compare-table td,.compare-table th{padding:10px 12px;}
+  .sticky-cta p{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- Countdown Bar -->
+<div class="topbar">
+  ⚡ Oferta de lançamento encerra em: <span id="timer">23:59:59</span> — <span>Preço de lançamento: R$27 (sobe para R$47 em breve)</span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════ -->
+<section class="hero">
+<div class="wrap">
+  <div class="hero-badge"><span class="pulse"></span>Lançamento Exclusivo 2026</div>
+
+  <h1>
+    Você trabalha o mês inteiro e no dia 30<br>
+    <span class="hl">não sabe para onde foi o dinheiro?</span>
+  </h1>
+
+  <p class="hero-sub">
+    Apresento a <strong>Planilha Minha Vida Financeira</strong> — a ferramenta que vai te dar controle total das suas finanças em menos de 30 minutos, <strong>sem precisar entender de Excel</strong>, sem consultores caros e sem assinar nenhum app mensalmente.
+  </p>
+
+  <div class="social-proof">
+    <div class="sp-item"><span>⭐</span> 4.9/5 avaliação</div>
+    <div class="sp-item"><span>🔥</span> +2.400 downloads</div>
+    <div class="sp-item"><span>✅</span> Garantia 7 dias</div>
+    <div class="sp-item"><span>⚡</span> Acesso imediato</div>
+  </div>
+
+  <!-- Dashboard Mockup -->
+  <div class="mockup fade-in">
+    <div class="mockup-bar">
+      <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
+      <span class="mockup-title">Minha Vida Financeira.xlsx — Dashboard</span>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="kpi-num" style="color:#00C896;">R$5.200</div>
+        <div class="kpi-lbl">Receita</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num" style="color:#F44336;">R$3.840</div>
+        <div class="kpi-lbl">Gastos</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num" style="color:#00BCD4;">R$1.360</div>
+        <div class="kpi-lbl">Saldo</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num" style="color:#FFB300;">26,2%</div>
+        <div class="kpi-lbl">Poupança</div>
+      </div>
+    </div>
+
+    <div class="chart-row">
+      <div class="chart-box">
+        <div class="chart-lbl">Gastos por Categoria</div>
+        <div class="bar-item">
+          <div class="bar-name">Moradia</div>
+          <div class="bar-track"><div class="bar-fill" style="width:82%;background:#FF5722;"></div></div>
+          <div class="bar-val">82%</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-name">Mercado</div>
+          <div class="bar-track"><div class="bar-fill" style="width:65%;background:#FF9800;"></div></div>
+          <div class="bar-val">65%</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-name">Transporte</div>
+          <div class="bar-track"><div class="bar-fill" style="width:48%;background:#FFB300;"></div></div>
+          <div class="bar-val">48%</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-name">Lazer</div>
+          <div class="bar-track"><div class="bar-fill" style="width:38%;background:#00C896;"></div></div>
+          <div class="bar-val">38%</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-name">Saúde</div>
+          <div class="bar-track"><div class="bar-fill" style="width:92%;background:#F44336;"></div></div>
+          <div class="bar-val" style="color:#F44336;font-weight:700;">92%</div>
+        </div>
+      </div>
+      <div class="chart-box">
+        <div class="chart-lbl">Método 50/30/20</div>
+        <div class="pie-visual">
+          <div class="pie-item">
+            <div class="pie-dot" style="background:#FF5722;"></div>
+            <span class="pie-name">Necessidades</span>
+            <span class="pie-pct" style="color:#FF5722;">52%</span>
+          </div>
+          <div class="pie-item">
+            <div class="pie-dot" style="background:#FFB300;"></div>
+            <span class="pie-name">Desejos</span>
+            <span class="pie-pct" style="color:#FFB300;">22%</span>
+          </div>
+          <div class="pie-item">
+            <div class="pie-dot" style="background:#00C896;"></div>
+            <span class="pie-name">Poupança</span>
+            <span class="pie-pct" style="color:#00C896;">26%</span>
+          </div>
+          <hr style="border-color:var(--border);margin:6px 0;">
+          <div class="pie-item">
+            <div class="pie-dot" style="background:#7C3AED;"></div>
+            <span class="pie-name">Score Financeiro</span>
+            <span class="pie-pct" style="color:#7C3AED;font-size:14px;font-weight:800;">78/100</span>
+          </div>
+          <div class="pie-item">
+            <div class="pie-dot" style="background:#00BCD4;"></div>
+            <span class="pie-name">Meta do mês</span>
+            <span class="pie-pct" style="color:#00BCD4;">✅ OK</span>
+          </div>
+          <div class="pie-item">
+            <div class="pie-dot" style="background:#F44336;"></div>
+            <span class="pie-name">Saúde Emerg.</span>
+            <span class="pie-pct" style="color:#F44336;">⚠️ 2,7 meses</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <a href="#preco" class="cta-btn" style="display:inline-block;max-width:460px;text-decoration:none;padding:20px 40px;border-radius:14px;">
+      🚀 Quero Organizar Minha Vida Financeira Agora
+    </a>
+    <p style="color:var(--muted);font-size:13px;margin-top:14px;">
+      ✅ Acesso imediato após o pagamento &nbsp;|&nbsp; 🔒 Pagamento 100% seguro
+    </p>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     DOR
+════════════════════════════════════════════════════════════ -->
+<section class="pain">
+<div class="wrap fade-in">
+  <div class="section-label">Você se identifica?</div>
+  <h2 class="section-title">Situações que <span style="color:var(--red)">destroem</span> sua vida financeira</h2>
+  <p class="section-sub">Se você vive pelo menos 3 dessas situações, essa planilha foi feita exatamente para você.</p>
+
+  <div class="pain-grid">
+    <div class="pain-card">
+      <div class="pain-icon">😰</div>
+      <div class="pain-title">O extrato é seu inimigo</div>
+      <div class="pain-body">Você abre o app do banco e sente aquele frio na barriga. Prefere não olhar do que enfrentar a realidade.</div>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">🤷</div>
+      <div class="pain-title">"Nunca sobra nada"</div>
+      <div class="pain-body">Você ganha um salário razoável mas no dia 15 já está no limite. Não sabe para onde vai mais da metade do que ganha.</div>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">💳</div>
+      <div class="pain-title">Parcelas fantasmas</div>
+      <div class="pain-body">Você parcelou coisas e não lembra o que foi. A fatura chega com um número que você não consegue explicar.</div>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">🔄</div>
+      <div class="pain-title">Tentou antes e desistiu</div>
+      <div class="pain-body">Já baixou app, usou caderninho, criou planilha do zero. Nenhum durou mais que uma semana. Você não é o problema — o método era ruim.</div>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">📈</div>
+      <div class="pain-title">Dívidas que não acabam</div>
+      <div class="pain-body">Paga todo mês mas o saldo mal se move. Os juros comem mais do que você consegue pagar.</div>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">😟</div>
+      <div class="pain-title">Medo do futuro</div>
+      <div class="pain-body">Aposentadoria? Investimentos? Esses assuntos dão ansiedade porque você não sabe nem por onde começar.</div>
+    </div>
+  </div>
+
+  <div style="margin-top:40px;padding:28px;background:rgba(255,87,34,.06);border:1px solid rgba(255,87,34,.2);border-radius:16px;max-width:620px;">
+    <p style="font-size:16px;line-height:1.8;"><strong style="color:var(--orange)">Isso não é fraqueza nem irresponsabilidade.</strong> É a ausência de um método. O sistema financeiro nunca te ensinou a lidar com dinheiro — e o mercado lucra exatamente com essa desinformação. <strong style="color:var(--white)">Mas isso muda hoje.</strong></p>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     O QUE ESTÁ DENTRO
+════════════════════════════════════════════════════════════ -->
+<section class="inside">
+<div class="wrap fade-in">
+  <div class="section-label">O que você recebe</div>
+  <h2 class="section-title">10 ferramentas em <span style="color:var(--green)">uma só planilha</span></h2>
+  <p class="section-sub">Cada funcionalidade foi pensada para resolver um problema real — sem complicação, sem código, sem mensalidade.</p>
+
+  <div class="inside-list">
+    <div class="inside-item">
+      <div class="inside-check">✓</div>
+      <div><b>🏠 Dashboard Principal com KPIs automáticos</b><p>Veja receita, gastos, saldo e score de saúde financeira em tempo real. Atualiza automaticamente conforme você lança dados.</p></div>
+    </div>
+    <div class="inside-item">
+      <div class="inside-check">✓</div>
+      <div><b>⚡ Método 50/30/20 integrado</b><p>Controle automático de quanto vai para necessidades, desejos e poupança. Alerta quando você sai da meta.</p></div>
+    </div>
+    <div class="inside-item">
+      <div class="inside-check">✓</div>
+      <div><b>💳 Controle completo de cartões de crédito</b><p>Limite, faturas, parcelamentos e data de vencimento de todos os seus cartões em um só lugar.</p></div>
+    </div>
+    <div class="inside-item">
+      <div class="inside-check">✓</div>
+      <div><b>🔴 Método Bola de Neve para dívidas</b><p>Quite suas dívidas até 30% mais rápido com o método comprovado. A planilha calcula automaticamente a ordem de prioridade.</p></div>
+    </div>
+    <div class="inside-item">
+      <div class="inside-check">✓</div>
+      <div><b>📈 Controle de investimentos e patrimônio</b><p>Carteira completa com rentabilidade, projeção de crescimento em 10 anos e distribuição ideal da carteira.</p></div>
+    </div>
+    <div class="inside-item">
+      <div class="inside-check">✓</div>
+      <div><b>🎯 Metas financeiras com barra de progresso</b><p>Defina seus objetivos (viagem, carro, imóvel) com prazo e acompanhe o progresso automaticamente.</p></div>
+    </div>
+    <div class="inside-item">
+      <div class="inside-check">✓</div>
+      <div><b>🧮 3 Simuladores financeiros</b><p>Simule juros compostos, tempo para quitar dívidas e quando você pode se aposentar. Toma decisões com dados reais.</p></div>
+    </div>
+    <div class="inside-item">
+      <div class="inside-check">✓</div>
+      <div><b>📊 Gráficos automáticos (sem configuração)</b><p>Evolução mensal, distribuição de gastos por categoria, crescimento patrimonial. Tudo gerado automaticamente.</p></div>
+    </div>
+    <div class="inside-item">
+      <div class="inside-check">✓</div>
+      <div><b>💚 Score de Saúde Financeira de 0 a 100</b><p>Um indicador único que resume sua situação financeira. Suba o score e sinta a evolução de forma tangível.</p></div>
+    </div>
+    <div class="inside-item">
+      <div class="inside-check">✓</div>
+      <div><b>⚙️ Design premium e fácil de usar</b><p>Parece um software profissional. Campos em azul = você preenche. Todo o resto é automático. Qualquer pessoa consegue usar.</p></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     BENEFITS
+════════════════════════════════════════════════════════════ -->
+<section style="padding:80px 20px;">
+<div class="wrap fade-in">
+  <div class="section-label">Transformação real</div>
+  <h2 class="section-title">O que muda na sua vida <span style="color:var(--orange)">em 30 dias</span></h2>
+
+  <div class="benefits-grid">
+    <div class="benefit-card">
+      <div class="benefit-icon">🔍</div>
+      <div class="benefit-title">Visibilidade total</div>
+      <div class="benefit-body">Pela primeira vez você vai saber exatamente para onde vai cada centavo do seu dinheiro. Sem surpresas no fim do mês.</div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">😌</div>
+      <div class="benefit-title">Paz financeira</div>
+      <div class="benefit-body">Quando você tem controle, o estresse some. Você para de fugir do extrato e começa a encarar os números com confiança.</div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🎯</div>
+      <div class="benefit-title">Decisões certeiras</div>
+      <div class="benefit-body">Comprar à vista ou parcelar? Vale a pena? Os simuladores te dão a resposta antes de você cometer um erro financeiro.</div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">💰</div>
+      <div class="benefit-title">Primeiro investimento</div>
+      <div class="benefit-body">A planilha te mostra o caminho para fazer o seu dinheiro trabalhar por você — mesmo começando com R$50 por mês.</div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🏆</div>
+      <div class="benefit-title">Metas que viram realidade</div>
+      <div class="benefit-body">Viagem, carro, imóvel, aposentadoria — você vai ver o progresso real a cada mês e se manter motivado para continuar.</div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">⏱️</div>
+      <div class="benefit-title">Só 10 min por semana</div>
+      <div class="benefit-body">Não é mais um método complicado que você vai abandonar. São 10 minutos semanais para manter tudo em ordem.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     DEPOIMENTOS
+════════════════════════════════════════════════════════════ -->
+<section class="pain" style="background:var(--bg2);">
+<div class="wrap fade-in">
+  <div class="section-label">Quem já usou</div>
+  <h2 class="section-title">Resultados <span style="color:var(--gold)">reais</span> de pessoas reais</h2>
+
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Sempre tive vergonha de olhar meu extrato. Em 3 meses quitei <strong>R$4.200 em dívidas</strong> que pareciam eternas. A planilha me deu clareza que nenhum app tinha conseguido. <strong>Melhor R$27 que já gastei na vida.</strong>"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">M</div>
+        <div><div class="testi-name">Marcos R.</div><div class="testi-role">Analista de TI · São Paulo, SP</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Tentei vários apps e nunca conseguia manter. A planilha é diferente — você vê <strong>tudo de uma vez, sem pagar mensalidade</strong>. Em 2 meses guardei <strong>R$800 que antes sumiam</strong> sem explicação."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,#00C896,#00BCD4);">C</div>
+        <div><div class="testi-name">Camila S.</div><div class="testi-role">Professora · Belo Horizonte, MG</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Sou autônoma e minha renda varia todo mês. Essa foi a primeira ferramenta que funcionou para mim. <strong>Me sinto no controle da minha vida financeira pela primeira vez</strong> em 8 anos."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,#7C3AED,#A855F7);">P</div>
+        <div><div class="testi-name">Patricia M.</div><div class="testi-role">Designer Freelancer · Curitiba, PR</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"Meu marido achava que era mais um produto inútil. Hoje ele usa todos os dias. O dashboard ficou tão bonito que <strong>parece um software profissional</strong>. Já recomendei para todo mundo."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,#FF5722,#FF9800);">F</div>
+        <div><div class="testi-name">Fernanda L.</div><div class="testi-role">Empreendedora · Rio de Janeiro, RJ</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     COMPARATIVO
+════════════════════════════════════════════════════════════ -->
+<section class="compare">
+<div class="wrap fade-in">
+  <div class="section-label">Por que a melhor escolha</div>
+  <h2 class="section-title">Minha Vida Financeira <span style="color:var(--orange)">vs</span> as alternativas</h2>
+
+  <div style="overflow-x:auto;">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Recurso</th>
+          <th>Apps mensais</th>
+          <th>Minha Vida Financeira</th>
+          <th>Planilha genérica</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Preço</td><td>R$19–39/mês</td><td class="highlight">R$27 — lançamento</td><td>Gratuita</td></tr>
+        <tr><td>Dashboard visual</td><td class="yes">✓</td><td class="yes">✓</td><td class="no">✗</td></tr>
+        <tr><td>Funciona offline</td><td class="no">✗</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><td>Método 50/30/20</td><td class="yes">✓</td><td class="yes">✓</td><td class="no">✗</td></tr>
+        <tr><td>Controle de dívidas</td><td>Parcial</td><td class="yes">✓</td><td class="no">✗</td></tr>
+        <tr><td>Simulador aposentadoria</td><td class="no">✗</td><td class="yes">✓</td><td class="no">✗</td></tr>
+        <tr><td>Score financeiro</td><td class="no">✗</td><td class="yes">✓</td><td class="no">✗</td></tr>
+        <tr><td>Seus dados, sua privacidade</td><td class="no">✗</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><td>Custo em 1 ano</td><td style="color:var(--red);font-weight:700;">R$228–R$468</td><td class="highlight">R$27</td><td style="color:var(--green);">R$0</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     BÔNUS
+════════════════════════════════════════════════════════════ -->
+<section style="padding:80px 20px;background:var(--bg2);">
+<div class="wrap fade-in">
+  <div class="section-label">Grátis com sua compra</div>
+  <h2 class="section-title">Bônus exclusivos no <span style="color:var(--gold)">valor de R$141</span></h2>
+  <p class="section-sub">Incluídos automaticamente. Sem custo adicional. Entrega imediata junto com a planilha.</p>
+
+  <div class="bonus-grid">
+    <div class="bonus-card">
+      <div class="bonus-badge">GRÁTIS</div>
+      <div class="bonus-icon">📘</div>
+      <div class="bonus-title">E-book: 10 Erros Financeiros</div>
+      <div class="bonus-body">Os 10 maiores erros que destroem qualquer salário — e como evitar cada um deles imediatamente.</div>
+      <div class="bonus-value">Valor: <span>R$47</span></div>
+    </div>
+    <div class="bonus-card">
+      <div class="bonus-badge">GRÁTIS</div>
+      <div class="bonus-icon">📅</div>
+      <div class="bonus-title">Planner Financeiro 12 Meses</div>
+      <div class="bonus-body">Versão imprimível do planejamento mensal. Para quem prefere o controle em papel ou quer presentear alguém.</div>
+      <div class="bonus-value">Valor: <span>R$27</span></div>
+    </div>
+    <div class="bonus-card">
+      <div class="bonus-badge">GRÁTIS</div>
+      <div class="bonus-icon">✅</div>
+      <div class="bonus-title">30 Hábitos em 30 Dias</div>
+      <div class="bonus-body">Um desafio prático: uma ação financeira por dia durante 30 dias. Simples, direto e transformador.</div>
+      <div class="bonus-value">Valor: <span>R$17</span></div>
+    </div>
+    <div class="bonus-card">
+      <div class="bonus-badge">GRÁTIS</div>
+      <div class="bonus-icon">🎯</div>
+      <div class="bonus-title">Desafio 21 Dias</div>
+      <div class="bonus-body">Plano de 21 dias para usar a planilha do zero e tirar resultado real. Ideal para quem está começando.</div>
+      <div class="bonus-value">Valor: <span>R$37</span></div>
+    </div>
+    <div class="bonus-card">
+      <div class="bonus-badge">GRÁTIS</div>
+      <div class="bonus-icon">📊</div>
+      <div class="bonus-title">Calculadora de IF</div>
+      <div class="bonus-body">Descubra em quantos anos você pode se aposentar com base no seu patrimônio e taxa de retirada.</div>
+      <div class="bonus-value">Valor: <span>R$47</span></div>
+    </div>
+    <div class="bonus-card" style="border-color:rgba(255,87,34,.3);">
+      <div class="bonus-badge" style="background:var(--green);">SURPRESA</div>
+      <div class="bonus-icon">🎁</div>
+      <div class="bonus-title">Bônus Surpresa</div>
+      <div class="bonus-body">Um bônus especial revelado somente após a compra. Nossos compradores têm adorado.</div>
+      <div class="bonus-value">Valor: <span>???</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     OBJEÇÕES
+════════════════════════════════════════════════════════════ -->
+<section style="padding:80px 20px;">
+<div class="wrap fade-in">
+  <div class="section-label">Tire suas dúvidas</div>
+  <h2 class="section-title">Respostas para o que você <span style="color:var(--orange)">está pensando</span></h2>
+
+  <div class="faq-wrap">
+    <div class="obj-list">
+      <div class="obj-item">
+        <div class="obj-q" onclick="toggleObj(this)">
+          "Não entendo de Excel — consigo usar?"
+          <div class="obj-icon">+</div>
+        </div>
+        <div class="obj-a">A planilha já vem com tudo configurado e pronto. Você só preenche os campos em azul — nada mais. Se você consegue digitar um número, você consegue usar. Temos inclusive um guia de instruções dentro da própria planilha explicando cada passo.</div>
+      </div>
+      <div class="obj-item">
+        <div class="obj-q" onclick="toggleObj(this)">
+          "Já tentei antes e não consegui manter"
+          <div class="obj-icon">+</div>
+        </div>
+        <div class="obj-a">O problema não era você — era o método. A maioria dos controles financeiros exige muita disciplina diária. Aqui, 10 minutos por semana são suficientes. O dashboard é motivador: quando você vê os gráficos e o score subindo, você tem vontade de continuar. Não é mais uma obrigação.</div>
+      </div>
+      <div class="obj-item">
+        <div class="obj-q" onclick="toggleObj(this)">
+          "Apps de celular não são mais práticos?"
+          <div class="obj-icon">+</div>
+        </div>
+        <div class="obj-a">Apps cobram entre R$19 e R$39 por mês — mais de R$460 por ano. Esta planilha custa R$27 uma única vez e tem mais funcionalidades do que a maioria dos apps. Além disso, no computador você visualiza tudo de uma vez, sem navegar por telas. E seus dados ficam só no seu dispositivo — não em servidores de terceiros.</div>
+      </div>
+      <div class="obj-item">
+        <div class="obj-q" onclick="toggleObj(this)">
+          "Funciona no Mac e no celular?"
+          <div class="obj-icon">+</div>
+        </div>
+        <div class="obj-a">Funciona perfeitamente no Excel para Windows e Mac. Para preencher e usar todas as funcionalidades, recomendamos o computador. No celular você pode abrir para consultar, mas a experiência de uso completa é no desktop — assim como qualquer planilha profissional.</div>
+      </div>
+      <div class="obj-item">
+        <div class="obj-q" onclick="toggleObj(this)">
+          "Como recebo a planilha após a compra?"
+          <div class="obj-icon">+</div>
+        </div>
+        <div class="obj-a">Assim que o pagamento é confirmado (instantâneo no PIX), você recebe um e-mail com o link para download. Em menos de 1 minuto a planilha está no seu computador. Sem espera, sem complicação.</div>
+      </div>
+      <div class="obj-item">
+        <div class="obj-q" onclick="toggleObj(this)">
+          "E se eu não gostar? Posso pedir reembolso?"
+          <div class="obj-icon">+</div>
+        </div>
+        <div class="obj-a">Sim, totalmente. Você tem 7 dias a partir da compra para testar a planilha. Se por qualquer motivo não ficar satisfeito, basta enviar um e-mail e devolveremos 100% do valor sem perguntas, sem burocracia e sem julgamento. O risco é completamente nosso.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PRICING
+════════════════════════════════════════════════════════════ -->
+<section class="pricing" id="preco">
+<div class="wrap fade-in">
+  <div class="section-label text-center">Oferta de lançamento</div>
+  <h2 class="section-title text-center">Invista na sua <span style="color:var(--green)">liberdade financeira</span></h2>
+
+  <div class="price-box">
+    <div class="price-label">🔥 Preço de lançamento — válido só nessa semana</div>
+    <div class="price-old">Sobe para R$ 47,00 em breve</div>
+    <div class="price-main"><sub>R$</sub> 27</div>
+    <div style="display:inline-block;background:rgba(255,87,34,.15);border:1px solid rgba(255,87,34,.4);color:var(--orange2);font-size:13px;font-weight:700;padding:7px 18px;border-radius:30px;margin-bottom:10px;">⏳ Após esta semana o preço sobe para R$47 — sem aviso prévio</div>
+    <div class="price-info">Pagamento único • Sem mensalidade • Acesso para sempre<br><span style="color:var(--orange);font-weight:600;">Garanta agora por R$27 antes que o preço suba</span></div>
+
+    <div class="price-includes">
+      <p>Planilha Minha Vida Financeira (10 abas)</p>
+      <p>Dashboard com KPIs e gráficos automáticos</p>
+      <p>E-book: 10 Erros Financeiros (bônus)</p>
+      <p>Planner Financeiro 12 Meses (bônus)</p>
+      <p>Desafio 21 Dias + Checklist 30 hábitos (bônus)</p>
+      <p>Calculadora de Independência Financeira (bônus)</p>
+      <p>Bônus surpresa exclusivo</p>
+      <p>Garantia total de 7 dias</p>
+    </div>
+
+    <a href="https://pay.kiwify.com.br/SEU-LINK-AQUI" class="cta-btn">
+      ✅ Quero Começar Agora por R$27
+    </a>
+    <p class="cta-sub">
+      <span>🔒 Pagamento 100% seguro</span> &nbsp;|&nbsp;
+      <span>⚡ PIX, cartão ou boleto</span> &nbsp;|&nbsp;
+      <span>📱 Acesso imediato</span>
+    </p>
+  </div>
+
+  <div class="guarantee">
+    <div class="guarantee-icon">🛡️</div>
+    <h3>Garantia Total de 7 Dias</h3>
+    <p>Se por qualquer motivo você não ficar satisfeito com a planilha, basta enviar um e-mail em até 7 dias corridos após a compra. Devolvemos <strong style="color:var(--white);">100% do seu dinheiro</strong> — sem perguntas, sem burocracia, sem julgamento. O risco é todo nosso.</p>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CTA FINAL
+════════════════════════════════════════════════════════════ -->
+<section class="cta-hero">
+<div class="wrap fade-in">
+  <h2>Você está a <span style="color:var(--orange)">R$27</span> de mudar<br>sua relação com o dinheiro</h2>
+  <p>Preço de lançamento válido apenas nessa semana. Depois sobe para R$47 — sem aviso prévio.</p>
+  <a href="https://pay.kiwify.com.br/SEU-LINK-AQUI" class="cta-btn" style="display:inline-block;max-width:480px;text-decoration:none;padding:22px 40px;font-size:18px;border-radius:16px;">
+    🚀 Garantir Minha Planilha Agora — R$27
+  </a>
+  <p style="color:var(--muted);font-size:13px;margin-top:16px;">
+    ✅ Acesso em menos de 1 minuto &nbsp;|&nbsp; 🛡️ Garantia de 7 dias &nbsp;|&nbsp; 🔒 Pagamento seguro Kiwify
+  </p>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════ -->
+<footer>
+  <p style="margin-bottom:8px;font-size:15px;color:var(--white);font-weight:600;">Minha Vida Financeira™</p>
+  <p style="margin-bottom:16px;color:var(--muted);">A planilha que organiza sua vida financeira em 30 minutos.</p>
+  <p>
+    <a href="#">Política de Privacidade</a> &nbsp;|&nbsp;
+    <a href="#">Termos de Uso</a> &nbsp;|&nbsp;
+    <a href="mailto:suporte@minhavidafinanceira.com.br">Suporte</a>
+  </p>
+  <p style="margin-top:12px;font-size:11px;color:#555570;">
+    © 2026 Minha Vida Financeira. Todos os direitos reservados.<br>
+    Este produto é vendido pela plataforma Kiwify. Ao comprar, você concorda com os termos e condições.
+  </p>
+</footer>
+
+<!-- Sticky CTA -->
+<div class="sticky-cta" id="stickyCta">
+  <p><strong>Minha Vida Financeira</strong> — Lançamento por <strong>R$27</strong> <span style="font-size:11px;color:var(--orange)">↑ sobe para R$47 essa semana</span></p>
+  <a href="https://pay.kiwify.com.br/SEU-LINK-AQUI">✅ Garantir por R$27 agora</a>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════════════════════ -->
+<script>
+// Countdown timer
+(function(){
+  // Set 24h from now stored in localStorage
+  let key = 'mvf_timer_end';
+  let end = localStorage.getItem(key);
+  if (!end) {
+    end = Date.now() + 24 * 60 * 60 * 1000;
+    localStorage.setItem(key, end);
+  }
+  end = parseInt(end);
+
+  function update() {
+    let diff = end - Date.now();
+    if (diff <= 0) {
+      document.getElementById('timer').textContent = '00:00:00';
+      return;
+    }
+    let h = Math.floor(diff / 3600000);
+    let m = Math.floor((diff % 3600000) / 60000);
+    let s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('timer').textContent =
+      String(h).padStart(2,'0') + ':' +
+      String(m).padStart(2,'0') + ':' +
+      String(s).padStart(2,'0');
+    setTimeout(update, 1000);
+  }
+  update();
+})();
+
+// Fade-in on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Sticky CTA after hero
+const sticky = document.getElementById('stickyCta');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 600) sticky.classList.add('show');
+  else sticky.classList.remove('show');
+});
+
+// FAQ accordion
+function toggleObj(el) {
+  const item = el.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.obj-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+</script>
+</body>
+</html>
